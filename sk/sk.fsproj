@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Config.fs" />
+    <Compile Include="Program.fs" />
+    <None Include="wip.fsx" />
+    <Content Include="Plugins\Excuses\config.json" />
+    <Content Include="Plugins\Excuses\skprompt.txt" />
+    <Content Include="Plugins\Joke\config.json" />
+    <Content Include="Plugins\Joke\skprompt.txt" />
+    <Content Include="Plugins\Limerick\config.json" />
+    <Content Include="Plugins\Limerick\skprompt.txt" />
+  </ItemGroup>
+</Project>
