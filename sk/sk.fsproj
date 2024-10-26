@@ -4,15 +4,14 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Domain.fs" />
-    <Compile Include="Config.fs" />
-    <Compile Include="Program.fs" />
-    <None Include="wip.fsx" />
     <Content Include="Plugins\Excuses\config.json" />
     <Content Include="Plugins\Excuses\skprompt.txt" />
+    <Compile Include="Domain.fs" />
     <Content Include="Plugins\Joke\config.json" />
     <Content Include="Plugins\Joke\skprompt.txt" />
     <Content Include="Plugins\Limerick\config.json" />
     <Content Include="Plugins\Limerick\skprompt.txt" />
+    <Compile Include="Config.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
 </Project>
