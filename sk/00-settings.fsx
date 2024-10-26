@@ -17,7 +17,7 @@ let K =
         )
         .Build()
 
-let funPluginDirectoryPath = Path.Combine("sk", "Plugins")
+let funPluginDirectoryPath = Path.Combine("sk", "Plugins", "FunPlugin")
 let plugins = K.ImportPluginFromPromptDirectory(funPluginDirectoryPath)
 
 // Arguments conept: https://github.com/microsoft/semantic-kernel/blob/main/dotnet/samples/Concepts/Functions/Arguments.cs
