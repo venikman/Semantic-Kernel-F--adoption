@@ -2,44 +2,14 @@
 
 open Builder
 open System
-open System.IO
 open System.Text
-open System.Net.Http
-open SkiaSharp
 open Microsoft.SemanticKernel
 open Microsoft.SemanticKernel.TextToImage
-open Microsoft.SemanticKernel.Embeddings
 open Microsoft.SemanticKernel.Connectors.OpenAI
 open System.Numerics.Tensors
-open Microsoft.SemanticKernel.Connectors.AzureOpenAI
-open sk.Config
-
-let ShowImage (url: string) (width: int) (height: int) =
-    let info = new SKImageInfo(width, height)
-    let surface = SKSurface.Create(info)
-    let canvas = surface.Canvas
-    canvas.Clear(SKColors.White)
-
-    task {
-        use httpClient = new HttpClient()
-        use! stream = httpClient.GetStreamAsync(url)
-        use memStream = new MemoryStream()
-        do! stream.CopyToAsync(memStream)
-        memStream.Seek(0L, SeekOrigin.Begin) |> ignore
-        let webBitmap = SKBitmap.Decode(memStream)
-        canvas.DrawBitmap(webBitmap, 0.0f, 0.0f, null)
-        surface.Draw(canvas, 0.0f, 0.0f, null)
-    }
-    |> _.Result
-
-    canvas.Save()
 
 let kernel = K Local
-
 let dallE = kernel.GetRequiredService<ITextToImageService>()
-
-let textEmbedding: IEmbeddingGenerationService<string, System.Single> =
-    AzureOpenAITextEmbeddingGenerationService(embedModelName, AzEndpoint, Key)
 
 let prompt =
     @"

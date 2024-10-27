@@ -13,14 +13,16 @@
 
 open Microsoft.SemanticKernel
 open System
+open System.IO
+open System.Net.Http
+open SkiaSharp
 open sk.Config
-
-
+open Microsoft.SemanticKernel.Embeddings
+open Microsoft.SemanticKernel.Connectors.AzureOpenAI
 
 type Deployments =
     | Local
     | Azure
-
 
 let AzEndpoint = "https://rag-test-gail.openai.azure.com"
 let ModelName = "gpt-4o"
@@ -30,7 +32,6 @@ let dalleEndpoint = "https://sniad-m2q8pasc-eastus.openai.azure.com"
 // let ModelVersion = "2024-08-06"
 // let EmbModelVersion = "2023-05-15"
 // let DallEModelVersion = "3.0"
-
 
 let K (t: Deployments) =
     match t with
@@ -46,3 +47,27 @@ let K (t: Deployments) =
 
     |> _.AddAzureOpenAITextToImage(deploymentName = dalleModelName, endpoint = dalleEndpoint, apiKey = DalEKey)
         .Build()
+
+let textEmbedding: IEmbeddingGenerationService<string, Single> =
+    AzureOpenAITextEmbeddingGenerationService(embedModelName, AzEndpoint, Key)
+
+
+let ShowImage (url: string) (width: int) (height: int) =
+    let info = new SKImageInfo(width, height)
+    let surface = SKSurface.Create(info)
+    let canvas = surface.Canvas
+    canvas.Clear(SKColors.White)
+
+    task {
+        use httpClient = new HttpClient()
+        use! stream = httpClient.GetStreamAsync(url)
+        use memStream = new MemoryStream()
+        do! stream.CopyToAsync(memStream)
+        memStream.Seek(0L, SeekOrigin.Begin) |> ignore
+        let webBitmap = SKBitmap.Decode(memStream)
+        canvas.DrawBitmap(webBitmap, 0.0f, 0.0f, null)
+        surface.Draw(canvas, 0.0f, 0.0f, null)
+    }
+    |> _.Result
+
+    canvas.Save() // in example it was `canvas.Snapshot().Display()
