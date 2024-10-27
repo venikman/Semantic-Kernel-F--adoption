@@ -12,7 +12,6 @@
 // When deciding between which one to use, know that ChatGPT models (i.e. gpt-3.5-turbo) are optimized for chat applications and have been fine-tuned for instruction-following and dialogue. As such, for creating semantic plugins with the Semantic Kernel, users may still find the TextCompletion model better suited for certain use cases.
 
 open Builder
-open Microsoft.SemanticKernel
 open Microsoft.SemanticKernel.TextToImage
 open Microsoft.SemanticKernel.ChatCompletion
 open Microsoft.SemanticKernel.Connectors.OpenAI
@@ -31,18 +30,6 @@ let rec talk stop =
     match stop with
     | true -> printfn $"Done."
     | false ->
-        let getInputAsync message =
-            async {
-                printf "%s" message
-                return System.Console.ReadLine()
-            }
-        // Usage example
-        // async {
-        //     let! userInput = getInputAsync "Enter something: "
-        //     printfn "You entered: %s" userInput
-        // }
-        // |> Async.RunSynchronously
-
         let userInput = getInputAsync "Your message: " |> Async.RunSynchronously
         printfn "You entered: %s" userInput
 

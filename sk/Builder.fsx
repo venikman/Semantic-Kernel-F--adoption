@@ -7,6 +7,10 @@
 #r "nuget: FSharp.Control.TaskSeq, 0.4.0"
 #r "nuget: System.Numerics.Tensors, 9.0.0-rc.2.24473.5"
 #r "nuget: SkiaSharp, 3.0.0-preview.5.4"
+#r "nuget: Microsoft.SemanticKernel.Plugins.Web, 1.25.0-alpha"
+#r "nuget: Microsoft.SemanticKernel.Plugins.Core, 1.25.0-alpha"
+#r "nuget: Microsoft.SemanticKernel.PromptTemplates.Handlebars, 1.25.0"
+
 
 #I @"Plugins"
 #load "Config.fs"
@@ -71,3 +75,16 @@ let ShowImage (url: string) (width: int) (height: int) =
     |> _.Result
 
     canvas.Save() // in example it was `canvas.Snapshot().Display()
+
+
+let getInputAsync message =
+    async {
+        printf "%s" message
+        return System.Console.ReadLine()
+    }
+// Usage example
+// async {
+//     let! userInput = getInputAsync "Enter something: "
+//     printfn "You entered: %s" userInput
+// }
+// |> Async.RunSynchronously
