@@ -1,11 +1,6 @@
-#r "nuget: Microsoft.SemanticKernel"
-#r "nuget: Microsoft.SemanticKernel.Connectors.OpenAI"
-#I @"Plugins"
-#load "Domain.fs"
 #load "Builder.fsx"
 
 open Builder
-open sk.Domain
 open Microsoft.SemanticKernel
 open Microsoft.SemanticKernel.Connectors.OpenAI
 open Microsoft.SemanticKernel.ChatCompletion

@@ -1,11 +1,9 @@
-#r "nuget: Microsoft.SemanticKernel"
+#load "Builder.fsx"
 #r "nuget: Microsoft.Extensions.Logging"
 #r "nuget: Microsoft.Extensions.Logging.Abstractions"
 #r "nuget: Microsoft.Extensions.DependencyInjection"
-#I @"Plugins"
-#load "Domain.fs"
-#load "Config.fs"
 
+open Builder
 open sk.Config
 open Microsoft.SemanticKernel
 open System.IO
@@ -17,17 +15,13 @@ let myLoggerFactory = NullLoggerFactory.Instance
 let kBuilder =
     Kernel
         .CreateBuilder()
-        .AddAzureOpenAIChatCompletion(
-            deploymentName = skConfig.ModelName,
-            endpoint = skConfig.Endpoint,
-            apiKey = skConfig.Key
-        )
+        .AddAzureOpenAIChatCompletion(deploymentName = ModelName, endpoint = AzEndpoint, apiKey = Key)
 
 kBuilder.Services.AddSingleton(implementationInstance = myLoggerFactory)
 let K = kBuilder.Build()
 
 // --------------------------
-let funPluginDirectoryPath = Path.Combine("sk", "Plugins")
+let funPluginDirectoryPath = Path.Combine("sk", "Plugins", "FunPlugin")
 let plugins = K.ImportPluginFromPromptDirectory(funPluginDirectoryPath)
 
 // Arguments conept: https://github.com/microsoft/semantic-kernel/blob/main/dotnet/samples/Concepts/Functions/Arguments.cs

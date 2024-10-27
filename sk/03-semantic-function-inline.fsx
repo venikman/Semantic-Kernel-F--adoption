@@ -1,12 +1,8 @@
-#r "nuget: Microsoft.SemanticKernel"
-#r "nuget: Microsoft.SemanticKernel.Connectors.OpenAI"
-#load "Domain.fs"
 #load "Builder.fsx"
 
 open Microsoft.SemanticKernel
 open Microsoft.SemanticKernel.Connectors.OpenAI
 open Builder
-open sk.Domain
 
 let kernel = K Local
 

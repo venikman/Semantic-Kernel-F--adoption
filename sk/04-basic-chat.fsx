@@ -1,10 +1,6 @@
-#r "nuget: Microsoft.SemanticKernel"
-#r "nuget: Microsoft.SemanticKernel.Connectors.OpenAI"
-#load "Domain.fs"
 #load "Builder.fsx"
 
 open Builder
-open sk.Domain
 open Microsoft.SemanticKernel
 open Microsoft.SemanticKernel.Connectors.OpenAI
 

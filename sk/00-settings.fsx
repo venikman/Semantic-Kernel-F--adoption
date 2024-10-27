@@ -1,20 +1,14 @@
-#r "nuget: Microsoft.SemanticKernel"
-#I @"Plugins"
-#load "Domain.fs"
-#load "Config.fs"
+#load "Builder.fsx"
 
-open sk.Config
+open Builder
 open Microsoft.SemanticKernel
 open System.IO
+open sk.Config
 
 let K =
     Kernel
         .CreateBuilder()
-        .AddAzureOpenAIChatCompletion(
-            deploymentName = skConfig.ModelName,
-            endpoint = skConfig.Endpoint,
-            apiKey = skConfig.Key
-        )
+        .AddAzureOpenAIChatCompletion(deploymentName = ModelName, endpoint = AzEndpoint, apiKey = Key)
         .Build()
 
 let funPluginDirectoryPath = Path.Combine("sk", "Plugins", "FunPlugin")
