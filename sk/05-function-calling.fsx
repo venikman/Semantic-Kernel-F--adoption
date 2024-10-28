@@ -7,7 +7,7 @@ open Microsoft.SemanticKernel.ChatCompletion
 open System.Text.Json
 open System.IO
 
-let kernel = K Local
+let kernel = (K Local).Build()
 let pluginDirectoryPath = Path.Combine("sk", "Plugins")
 kernel.ImportPluginFromPromptDirectory(pluginDirectoryPath, "SummarizePlugin")
 kernel.ImportPluginFromPromptDirectory(pluginDirectoryPath, "WritePlugin")

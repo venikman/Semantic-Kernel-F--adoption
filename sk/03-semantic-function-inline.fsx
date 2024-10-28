@@ -4,7 +4,7 @@ open Microsoft.SemanticKernel
 open Microsoft.SemanticKernel.Connectors.OpenAI
 open Builder
 
-let kernel = K Local
+let kernel = (K Local).Build()
 
 let skPrompt =
     """
@@ -19,9 +19,7 @@ let executionSettings =
 let promptTemplate =
     KernelPromptTemplateFactory().Create(PromptTemplateConfig(skPrompt))
 
-let renderedPrompt = promptTemplate.RenderAsync(kernel).Result
-
-printfn "%A" renderedPrompt
+// promptTemplate.RenderAsync(kernel).Result |> printfn "%A"
 
 let summaryFunction = kernel.CreateFunctionFromPrompt(skPrompt, executionSettings)
 

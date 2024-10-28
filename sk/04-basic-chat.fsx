@@ -4,7 +4,7 @@ open Builder
 open Microsoft.SemanticKernel
 open Microsoft.SemanticKernel.Connectors.OpenAI
 
-let kernel = K Local
+let kernel = (K Local).Build()
 
 let executionSettings =
     OpenAIPromptExecutionSettings(MaxTokens = 2000, Temperature = 0.7, TopP = 0.5)

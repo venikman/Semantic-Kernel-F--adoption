@@ -8,7 +8,7 @@ open Microsoft.SemanticKernel.TextToImage
 open Microsoft.SemanticKernel.Connectors.OpenAI
 open System.Numerics.Tensors
 
-let kernel = K Local
+let kernel = (K Local).Build()
 let dallE = kernel.GetRequiredService<ITextToImageService>()
 
 let prompt =

@@ -12,11 +12,12 @@
 // When deciding between which one to use, know that ChatGPT models (i.e. gpt-3.5-turbo) are optimized for chat applications and have been fine-tuned for instruction-following and dialogue. As such, for creating semantic plugins with the Semantic Kernel, users may still find the TextCompletion model better suited for certain use cases.
 
 open Builder
+open Microsoft.SemanticKernel
+open Microsoft.SemanticKernel.Connectors.OpenAI
 open Microsoft.SemanticKernel.TextToImage
 open Microsoft.SemanticKernel.ChatCompletion
-open Microsoft.SemanticKernel.Connectors.OpenAI
 
-let kernel = K Local
+let kernel = (K Local).Build()
 
 let dallE = kernel.GetRequiredService<ITextToImageService>()
 let chatGPT = kernel.GetRequiredService<IChatCompletionService>()

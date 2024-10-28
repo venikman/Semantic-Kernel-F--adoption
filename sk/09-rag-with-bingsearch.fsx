@@ -9,7 +9,7 @@ open Microsoft.SemanticKernel.Data
 open Microsoft.SemanticKernel.Plugins.Web.Bing
 open Microsoft.SemanticKernel.PromptTemplates.Handlebars
 
-let kernel = K Local
+let kernel = (K Local).Build()
 let textSearch = new BingTextSearch(apiKey = BingKey)
 let query = "What is the Semantic Kernel?"
 let args = KernelArguments(source = Map.ofList [ ("query", query) ])
